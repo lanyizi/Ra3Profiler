@@ -1,0 +1,58 @@
+﻿{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "windows-x86",
+      "description": "面向具有 Visual Studio 开发环境的 Windows（32位）",
+      "hidden": true,
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "FILEPATH",
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        },
+        "VCPKG_HOST_TRIPLET": "x86-windows-static",
+        "VCPKG_TARGET_TRIPLET": "x86-windows-static"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "msvc-x86",
+      "displayName": "MSVC x86",
+      "description": "用 Visual Studio 生成 32 位目标",
+      "inherits": "windows-x86",
+      "architecture": {
+        "value": "Win32",
+        "strategy": "set"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "msvc-x86-debug",
+      "displayName": "MSVC x86 Debug",
+      "description": "MSVC（调试模式）",
+      "configurePreset": "msvc-x86",
+      "configuration": "Debug"
+    },
+    {
+      "name": "msvc-x86-release",
+      "displayName": "MSVC x86 Release",
+      "description": "MSVC（发布模式）",
+      "configurePreset": "msvc-x86",
+      "configuration": "Release"
+    },
+    {
+      "name": "msvc-x86-size",
+      "displayName": "MSVC x86 Size",
+      "description": "MSVC（发布模式，最小体积）",
+      "configurePreset": "msvc-x86",
+      "configuration": "MinSizeRel"
+    }
+  ]
+}
